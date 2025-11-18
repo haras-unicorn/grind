@@ -1,0 +1,16 @@
+[package]
+name = "aoc-2024-day-07"
+version = "0.1.0"
+description = "Advent of Code 2024 day 7 solution"
+repository = "https://gitlab.com/haras-unicorn/grind"
+authors = ["haras-unicorn <github@haras-unicorn.net>"]
+license = "MIT"
+readme = "README.md"
+edition = "2021"
+
+[dependencies]
+anyhow = { version = "1.0.89", features = ["backtrace"] }
+convert-base = "1.1.2"
+itertools = "0.13.0"
+pad = "0.1.6"
+radix_fmt = "1.0.0"

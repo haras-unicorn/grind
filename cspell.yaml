@@ -1,0 +1,16 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/streetsidesoftware/cspell/main/packages/cspell-types/cspell.schema.json
+
+useGitignore: true
+version: "0.2"
+language: en
+ignoreWords:
+  - haras
+  - leetcode
+  - aoc
+  - itertools
+ignorePaths:
+  - flake.nix
+  - justfile
+  - input.txt
+  - scripts/flake
+  - cspell.yaml
