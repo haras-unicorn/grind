@@ -11,6 +11,7 @@ format:
     prettier --write '{{ root }}'
     nixfmt ...(fd '.*.nix$' '{{ root }}' | lines)
     cd '{{ root }}'; cargo fmt --all
+    cd '{{ root }}'; cargo clippy --fix
 
 lint:
     cd '{{ root }}'; just --unstable --fmt --check
