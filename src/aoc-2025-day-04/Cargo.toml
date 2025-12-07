@@ -1,0 +1,13 @@
+[package]
+name = "aoc-2025-day-04"
+version = "0.1.0"
+description = "Advent of Code 2025 day 4 solution"
+repository = "https://gitlab.com/haras-unicorn/grind"
+authors = ["haras-unicorn <github@haras-unicorn.net>"]
+license = "MIT"
+readme = "README.md"
+edition = "2021"
+
+[dependencies]
+anyhow = { version = "1.0.89", features = ["backtrace"] }
+itertools = "0.13.0"
