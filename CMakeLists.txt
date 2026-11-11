@@ -9,6 +9,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# the solutions do not use modules, and scanning for them adds gcc flags to the
+# compile commands that clangd does not know
+set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
+
 set(GRIND_WARNINGS
   -Wall
   -Wextra
@@ -54,6 +58,18 @@ foreach(problem_dir IN LISTS GRIND_PROBLEMS)
   cmake_path(GET problem_dir FILENAME problem)
   set(source "${problem_dir}/main.cpp")
 
+  # NOTE: clangd takes the first compile command of a file, so this one comes
+  # before the others and makes the editor see the tests next to the main. It is
+  # never built: it has the tests but not the doctest main, so it would not link
+  if(GRIND_TESTS)
+    add_library(${problem}-editor OBJECT EXCLUDE_FROM_ALL ${source})
+    target_compile_options(${problem}-editor PRIVATE ${GRIND_WARNINGS})
+    target_compile_definitions(${problem}-editor
+      PRIVATE ${GRIND_DEFINITIONS} GRIND_TEST
+    )
+    target_link_libraries(${problem}-editor PRIVATE doctest::doctest)
+  endif()
+
   add_executable(${problem} ${source})
   target_compile_options(${problem} PRIVATE ${GRIND_WARNINGS})
   target_compile_definitions(${problem} PRIVATE ${GRIND_DEFINITIONS})
@@ -65,7 +81,7 @@ foreach(problem_dir IN LISTS GRIND_PROBLEMS)
       PRIVATE ${GRIND_WARNINGS} ${GRIND_SANITIZERS}
     )
     target_compile_definitions(${problem}-test
-      PRIVATE ${GRIND_DEFINITIONS} GRIND_TEST
+      PRIVATE ${GRIND_DEFINITIONS} GRIND_TEST DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
     )
     target_link_options(${problem}-test PRIVATE ${GRIND_SANITIZERS})
     target_link_libraries(${problem}-test PRIVATE doctest::doctest)

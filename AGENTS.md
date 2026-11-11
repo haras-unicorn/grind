@@ -4,6 +4,24 @@ Solutions to small coding problems from interviews and competitions, like Advent
 of Code and LeetCode, in Rust, Python and C++. Every problem is a directory with
 one source file that reads stdin and prints the answer to stdout.
 
+learning: true
+
+The human writes the solutions, to learn. The `learning-project` skill applies
+with this scope:
+
+- The solutions are everything in `src/crates`, `src/python` and `src/cpp`, the
+  old `aoc-*` crates too. The skill's hard limits apply there in full: no code,
+  no fixes, no refactors.
+- The one loosening is the unit tests at the bottom of a solution, which the
+  assistant may write. The problems are well known, so the learning is in the
+  solution and not in designing its tests. The tests are written to break the
+  solution, and the code above them stays the human's.
+- The tooling is allowed without asking, even where it holds code: `src/nix`,
+  the templates in `assets/templates`, the root Cargo, CMake and Python
+  configuration, the docs and the CI workflows.
+- Practice problems come as a statement, an input format and examples. No
+  approach, data structure names or traps, unless the human asks for a hint.
+
 ## Structure
 
 - `src/crates/<problem>`: Rust solutions, members of the Cargo workspace in the
@@ -30,6 +48,9 @@ with building the packages.
 Cargo works offline: the shell links `.cargo/config.toml` to the crates vendored
 by Nix from `Cargo.lock`, so a new Rust dependency only works after the human
 locks it.
+
+On entry the shell also configures CMake in `build/`, so clangd has its compile
+commands without any manual step.
 
 ## Generated files
 

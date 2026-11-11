@@ -23,8 +23,10 @@ std::string_view describe(Error error);
 } // namespace
 
 // NOTE: the test binary gets its main from doctest, so the tests can sit at the
-// bottom of this file and it stays one source file to submit
-#ifndef GRIND_TEST
+// bottom of this file and it stays one source file to submit. Only that binary
+// defines DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN - the editor sees GRIND_TEST with
+// both the main and the tests
+#ifndef DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 int main() {
   const auto answer = solve(std::cin);
   if (!answer) {
@@ -77,7 +79,6 @@ std::string_view describe(Error error) {
 } // namespace
 
 #ifdef GRIND_TEST
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include <doctest/doctest.h>
 
 #include <limits>

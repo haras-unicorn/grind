@@ -266,6 +266,17 @@
 
         env.RUST_BACKTRACE = "full";
 
+        # NOTE: clangd reads the compile commands that cmake writes into build,
+        # so this is what makes the editor work on a fresh machine. It only
+        # warns on failure, because it must not keep the shell from starting
+        shellHook = ''
+          (
+            cd "$(flake-root)"
+            cmake -S . -B build -G Ninja \
+              -DCMAKE_PREFIX_PATH=${pkgs.doctest} > /dev/null
+          ) || echo "warning: could not configure the cmake build" >&2
+        '';
+
         bwrap.files."cspell.yaml".source = cspellConfig;
 
         # NOTE: points cargo at the crates vendored by nix so it works without
