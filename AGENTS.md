@@ -16,6 +16,11 @@ with this scope:
   assistant may write. The problems are well known, so the learning is in the
   solution and not in designing its tests. The tests are written to break the
   solution, and the code above them stays the human's.
+- Questions about syntax and the standard library get a direct answer: the
+  spelling, the header and a small example on other data. They are hard to
+  search for and cost time. Nudge early towards the right API or idea and do not
+  wait through a long chain of questions. The logic and the shape of the
+  solution stay the human's.
 - The tooling is allowed without asking, even where it holds code: `src/nix`,
   the templates in `assets/templates`, the root Cargo, CMake and Python
   configuration, the docs and the CI workflows.
