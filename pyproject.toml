@@ -1,0 +1,49 @@
+[project]
+name = "grind"
+version = "0.1.0"
+description = "Python solutions to small coding problems"
+requires-python = ">=3.13"
+
+[tool.ruff]
+# the width and indent of the editorconfig, which ruff does not read
+line-length = 80
+indent-width = 2
+extend-exclude = ["assets"]
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+  # these conflict with the formatter
+  "COM812",
+  "ISC001",
+  # these pair with D211 and D212, which are the ones kept
+  "D203",
+  "D213",
+  # the items of a solution are not an api, like private items in rust,
+  # so only the module needs a docstring
+  "D101",
+  "D102",
+  "D103",
+  "D105",
+  "D106",
+  "D107",
+  # a solution is a script and not a package
+  "INP001",
+  # the answer of the problem goes to stdout
+  "T201",
+  # the tests sit at the bottom of the solution and use bare asserts and
+  # expected values, the way pytest wants them
+  "S101",
+  "PLR2004",
+]
+
+[tool.basedpyright]
+include = ["src/python"]
+typeCheckingMode = "strict"
+
+[tool.pytest.ini_options]
+testpaths = ["src/python"]
+# the tests sit at the bottom of the solution, in a main.py like every other,
+# so pytest has to look in every file and import them by path
+python_files = ["*.py"]
+addopts = ["--import-mode=importlib"]

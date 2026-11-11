@@ -1,20 +1,17 @@
 {
+  description = "Solutions to small coding problems from interviews and competitions";
+
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/release-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
 
-    perch.url = "github:altibiz/perch/refs/tags/2.1.1";
-    perch.inputs.nixpkgs.follows = "nixpkgs";
-
-    naersk.url = "github:nix-community/naersk";
-    rust-overlay.url = "github:oxalica/rust-overlay";
-    rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
+    haraspkgs.url = "github:haras-unicorn/haraspkgs/v1.5.2";
+    haraspkgs.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
-    { self, perch, ... }@inputs:
-    perch.lib.flake.make {
+    { haraspkgs, ... }@inputs:
+    haraspkgs.lib.makeFlake {
       inherit inputs;
-      root = ./.;
-      prefix = "scripts/flake";
+      modules = [ ./src/nix ];
     };
 }
